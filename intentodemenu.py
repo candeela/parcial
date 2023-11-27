@@ -4,6 +4,7 @@ from Personaje import Personaje
 from Enemigos import Enemigos
 from TextBox import TextBox1
 from Estado_juego import Estado_juego
+import json
 
 
 pygame.init()
@@ -98,6 +99,7 @@ def jugar_nivel_3(estado_juego):
             segundos = 30
             lista_explosion = []
             i = 0 
+            sonido_explosion = pygame.mixer.Sound("laser.mp3")
 
             timer = pygame.USEREVENT
             pygame.time.set_timer(timer,1000)
@@ -153,18 +155,22 @@ def jugar_nivel_3(estado_juego):
                     if lista_teclas[pygame.K_RIGHT]:
                             mostrar_bala = True
                             derecha = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_LEFT]:
                             mostrar_bala = True
                             izquierda = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_UP]:
                             mostrar_bala = True
                             arriba = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_DOWN]:
                             mostrar_bala = True
                             abajo = True
+                            sonido_explosion.play()
 
                 # limites del personaje
                 if personaje.rect.x < 0:
@@ -357,6 +363,7 @@ def  jugar_nivel_dos(estado_juego):
             segundos = 30
             lista_explosion = []
             i = 0 
+            sonido_explosion = pygame.mixer.Sound("laser.mp3")
 
             timer = pygame.USEREVENT
             pygame.time.set_timer(timer,1000)
@@ -410,18 +417,22 @@ def  jugar_nivel_dos(estado_juego):
                     if lista_teclas[pygame.K_RIGHT]:
                             mostrar_bala = True
                             derecha = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_LEFT]:
                             mostrar_bala = True
                             izquierda = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_UP]:
                             mostrar_bala = True
                             arriba = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_DOWN]:
                             mostrar_bala = True
                             abajo = True
+                            sonido_explosion.play()
 
                 # limites del personaje
                 if personaje.rect.x < 0:
@@ -589,6 +600,7 @@ def jugar_nivel_uno(estado_juego):
             segundos = 20
             lista_explosion = []
             i = 0 
+            sonido_explosion = pygame.mixer.Sound("laser.mp3")
 
             timer = pygame.USEREVENT #TIMER
             pygame.time.set_timer(timer,1000)
@@ -639,18 +651,22 @@ def jugar_nivel_uno(estado_juego):
                     if lista_teclas[pygame.K_RIGHT]:
                             mostrar_bala = True
                             derecha = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_LEFT]:
                             mostrar_bala = True
                             izquierda = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_UP]:
                             mostrar_bala = True
                             arriba = True
+                            sonido_explosion.play()
 
                     if lista_teclas[pygame.K_DOWN]:
                             mostrar_bala = True
                             abajo = True
+                            sonido_explosion.play()
 
                 # limites del personaje
                 if personaje.rect.x < 0:
@@ -789,7 +805,6 @@ def cargar_nombre(estado_juego) :
                     print(f"Texto ingresado: {estado_juego.nombre}")
                     jugar_nivel_uno(estado_juego)
 
-
         pantalla.fill(COLOR_AZUL)
         pygame.draw.rect(pantalla, COLOR_BOTONES, (580, 500, 200, 100))
         fuente = pygame.font.SysFont("Arial", 25)
@@ -800,21 +815,45 @@ def cargar_nombre(estado_juego) :
 
     pygame.quit()
 
-
+def ordenar_puntaje(lista: list, clave: str): 
+    for i in range(len(lista) - 1):
+        for j in range(i + 1, len(lista)):
+            if lista[i][1][clave] < lista[j][1][clave]:
+                aux = lista[i]
+                lista[i] = lista[j]
+                lista[j] = aux
+    return lista
 def ranking():
     pygame.display.set_caption("Options")
-    flag_ejecutar_opciones = True 
+    imagen = imagen_fondo()
+    flag_ejecutar_ranking = True 
 
-    while flag_ejecutar_opciones:
+    with open('data.json', 'r') as file:
+        datos_ranking = json.load(file)
+
+        lista_ranking = list(datos_ranking.items())
+        ranking_ordenado =  ordenar_puntaje(lista_ranking,"puntaje")
+
+    while flag_ejecutar_ranking:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                flag_ejecutar_opciones = False
+                flag_ejecutar_ranking = False
 
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                posicion_click = list(evento.pos)
-                print(posicion_click)
+        pantalla.blit(imagen,imagen.get_rect())
+        fuente = pygame.font.SysFont("Gabriola", 60)
+        fuente_titulo = pygame.font.SysFont("Gabriola", 80)
+        texto_ranking = fuente_titulo.render("Ranking", True, COLOR_NEGRO)
+        pantalla.blit(texto_ranking,(350,100))
+        y_pos = 250  
 
-        pantalla.fill(COLOR_ROSA)
+        # Mostrar los primeros 5 jugadores en el ranking
+        for i in range(5):
+            id = i + 1
+            nombre = ranking_ordenado[i][0]
+            jugador = ranking_ordenado[i][1]
+            texto_jugador = fuente.render("{0}. {1}: {2}".format(id,nombre,jugador['puntaje']), True, COLOR_NEGRO)
+            pantalla.blit(texto_jugador, (300, y_pos))
+            y_pos += 40  
 
         pygame.display.flip()
 
@@ -843,17 +882,20 @@ def menu():
 
                 if posicion_click[0] > 580 and posicion_click[0] < 780 and 500 < posicion_click[1] < 600:
                     flag_ejecutar_menu = False
-
+        
         pygame.draw.rect(pantalla, COLOR_BOTONES, (580, 100, 200, 100))
         pygame.draw.rect(pantalla, COLOR_BOTONES, (580, 300, 200, 100))
         pygame.draw.rect(pantalla, COLOR_BOTONES, (580, 500, 200, 100))
         fuente = pygame.font.SysFont("Arial", 25)
+        fuente_titulo = pygame.font.SysFont("Gabriola", 70)
         texto_ranking = fuente.render("Ranking", True, COLOR_BLANCO)
         texto_jugar = fuente.render("Jugar", True, COLOR_BLANCO)
         texto_salir = fuente.render("Salir", True, COLOR_BLANCO)
+        texto_nombre_juego = fuente_titulo.render("Galactic Labyrinth", True, COLOR_BLANCO)
         pantalla.blit(texto_ranking, (620, 150))
         pantalla.blit(texto_jugar, (620, 350))
         pantalla.blit(texto_salir, (620, 550))
+        pantalla.blit(texto_nombre_juego, (100, 300))
         pygame.display.flip()
 
 menu()

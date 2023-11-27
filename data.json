@@ -7,10 +7,6 @@
         "Nombre": "lola",
         "puntaje": 70
     },
-    "nadie": {
-        "Nombre": "nadie",
-        "puntaje": 90
-    },
     "camila": {
         "Nombre": "camila",
         "puntaje": 20
@@ -21,6 +17,10 @@
     },
     "can": {
         "Nombre": "can",
-        "puntaje": 90
+        "puntaje": 0
+    },
+    "candela": {
+        "Nombre": "candela",
+        "puntaje": 0
     }
 }
