@@ -1,0 +1,22 @@
+{
+    "cande": {
+        "Nombre": "cande",
+        "puntaje": 0
+    },
+    "lola": {
+        "Nombre": "lola",
+        "puntaje": 70
+    },
+    "nadie": {
+        "Nombre": "nadie",
+        "puntaje": 90
+    },
+    "camila": {
+        "Nombre": "camila",
+        "puntaje": 20
+    },
+    "red": {
+        "Nombre": "red",
+        "puntaje": 90
+    }
+}
