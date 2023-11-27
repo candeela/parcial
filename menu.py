@@ -853,7 +853,7 @@ def ranking():
             jugador = ranking_ordenado[i][1]
             texto_jugador = fuente.render("{0}. {1}: {2}".format(id,nombre,jugador['puntaje']), True, COLOR_NEGRO)
             pantalla.blit(texto_jugador, (300, y_pos))
-            y_pos += 40  
+            y_pos += 50  
 
         pygame.display.flip()
 
