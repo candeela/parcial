@@ -10,7 +10,7 @@ import json
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
 pygame.display.set_caption("juego")
-flag_ejecutar = True
+
 def imagen_fondo():
     imagen_fondo = pygame.image.load("fondo.png")
     imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA,ALTO_VENTANA))
@@ -109,13 +109,11 @@ def jugar_nivel_3(estado_juego):
 
             personaje = Personaje( 368,389,100,100)
 
-
             rect_x = personaje.rect.x 
             rect_y = personaje.rect.y
 
             bala = pygame.image.load("disparo.png")
             bala = pygame.transform.scale(bala, (40, 40))
-
 
             enemigo_1 = Enemigos(90,100,90,80)
             enemigo_2 = Enemigos(100,500, 90,80)
@@ -215,18 +213,17 @@ def jugar_nivel_3(estado_juego):
 
                 # Cuando llega al borde de la pantalla vuelve a empezar
                     if enemigo_3.rect.y >= ALTO_VENTANA:
-                        enemigo_3.rect.y = -1 # Restablece la posición de la imagen 2
-                        posicion_imagen_enemigo_3 = -1 # Restablece la posición progresiva
+                        enemigo_3.rect.y = -1 # Restablece la posición de la imagen 
+                        posicion_imagen_enemigo_3 = -1 #  posición progresiva
 
                 if flag_vivo_4 == True:#enemigo 1
                     posicion_imagen_enemigo_4 += 3 # velocidad de movimiento
                     enemigo_4.rect.y = posicion_imagen_enemigo_4
                     pantalla.blit(enemigo_4.imagen, enemigo_4.rect)
 
-                # Cuando llega al borde de la pantalla vuelve a empezar
                     if enemigo_4.rect.y >= ALTO_VENTANA:
-                        enemigo_4.rect.y = -1 # Restablece la posición de la imagen 2
-                        posicion_imagen_enemigo_4 = -1 # Restablece la posición progresiva
+                        enemigo_4.rect.y = -1 
+                        posicion_imagen_enemigo_4 = -1 
 
                 pantalla.blit(personaje.imagen, personaje.rect)
 
@@ -455,13 +452,13 @@ def  jugar_nivel_dos(estado_juego):
                     enemigo_1.rect.x = posicion_imagen_enemigo
                     pantalla.blit(enemigo_1.imagen, enemigo_1.rect)
 
-                # Cuando llega al borde de la pantalla vuelve a empezar
+                
                     if enemigo_1.rect.x >= ANCHO_VENTANA:
-                        enemigo_1.rect.x= -10 # Restablece la posición de la imagen 2
-                        posicion_imagen_enemigo = -10  # Restablece la posición progresiva
+                        enemigo_1.rect.x= -10 
+                        posicion_imagen_enemigo = -10  
 
                 if flag_vivo_2 == True:
-                    posicion_imagen_enemigo_2 += 5  # Ajusta la velocidad de movimiento
+                    posicion_imagen_enemigo_2 += 5  # velocidad de movimiento
                     enemigo_2.rect.x = posicion_imagen_enemigo_2
                     pantalla.blit(enemigo_2.imagen, enemigo_2.rect)
 
@@ -470,15 +467,14 @@ def  jugar_nivel_dos(estado_juego):
                         enemigo_2.rect.x = -10 
                         posicion_imagen_enemigo_2 = -10 
 
-                if flag_vivo_3 == True:#enemigo 1
-                    posicion_imagen_enemigo_3 += 5 # velocidad de movimiento
+                if flag_vivo_3 == True:
+                    posicion_imagen_enemigo_3 += 5 
                     enemigo_3.rect.y = posicion_imagen_enemigo_3
                     pantalla.blit(enemigo_3.imagen, enemigo_3.rect)
 
-                # Cuando llega al borde de la pantalla vuelve a empezar
                     if enemigo_3.rect.y >= ALTO_VENTANA:
-                        enemigo_3.rect.y = -1 # Restablece la posición de la imagen 2
-                        posicion_imagen_enemigo_3 = -1 # Restablece la posición progresiva
+                        enemigo_3.rect.y = -1 
+                        posicion_imagen_enemigo_3 = -1 
 
                 pantalla.blit(personaje.imagen, personaje.rect)
 
@@ -556,7 +552,7 @@ def  jugar_nivel_dos(estado_juego):
                             lista_explosion[i]["rect"].y = enemigo_3.rect.y
                         for i in range(14):
                             pantalla.blit(lista_explosion[i]["imagen"], lista_explosion[i]["rect"])
-                            pygame.display.flip()  # Actualiza la pantalla para que se muestre la explosión
+                            pygame.display.flip()  
                             pygame.time.delay(25) 
 
                         estado_juego.puntaje += 10
@@ -693,15 +689,14 @@ def jugar_nivel_uno(estado_juego):
 
                 # Cuando llega al borde de la pantalla vuelve a empezar
                     if enemigo_1.rect.x >= ANCHO_VENTANA:
-                        enemigo_1.rect.x= -10 # Restablece la posición de la imagen 2
-                        posicion_imagen_enemigo = -10  # Restablece la posición progresiva
+                        enemigo_1.rect.x= -10 # Restablece la posición de la 
+                        posicion_imagen_enemigo = -10  #  posición progresiva
 
                 if flag_vivo_2 == True:
-                    posicion_imagen_enemigo_2 += 7  # Ajusta la velocidad de movimiento
+                    posicion_imagen_enemigo_2 += 7  #  velocidad de movimiento
                     enemigo_2.rect.x = posicion_imagen_enemigo_2
                     pantalla.blit(enemigo_2.imagen, enemigo_2.rect)
 
-                # Cuando llega al borde de la pantalla vuelve a empezar 
                     if enemigo_2.rect.x >= ANCHO_VENTANA:
                         enemigo_2.rect.x = -10 
                         posicion_imagen_enemigo_2 = -10 
@@ -769,7 +764,7 @@ def jugar_nivel_uno(estado_juego):
                             lista_explosion[i]["rect"].y = enemigo_2.rect.y
                         for i in range(14):
                             pantalla.blit(lista_explosion[i]["imagen"], lista_explosion[i]["rect"])
-                            pygame.display.flip()  # Actualiza la pantalla para que se muestre la explosión
+                            pygame.display.flip()  
                             pygame.time.delay(25) 
 
                         estado_juego.puntaje += 10
@@ -873,7 +868,6 @@ def menu():
 
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 posicion_click = list(evento.pos)
-                print(posicion_click)
 
                 if posicion_click[0] > 580 and posicion_click[0] < 780 and 100 < posicion_click[1] < 200:
                     ranking()
