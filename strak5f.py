@@ -4,26 +4,22 @@ import json
 
 #Función Normalizar Datos
 def stark_normalizar_datos (superhero_list: list):
-    retorno = None
     for superheroe in superhero_list:
         if (superheroe == {}):
             print("Hubo un error al normalizar los datos. Verifique que no haya algún dato faltante en la lista")
-            retorno = False
     if (superhero_list == []):
         print("Hubo un error al normalizar los datos. Verifique que la lista no esté vacía")
-        retorno = False
     else:
         for superheroe in superhero_list:
             if ((type(superheroe["fuerza"]) == int) or (type(superheroe["peso"]) == float) or (type(superheroe["altura"]) == float)):
                 print("Hubo un error al normalizar los datos. Verifique que los datos ya no se hayan normalizado anteriormente")
-                retorno = False
+                
             else:
                 superheroe["fuerza"] = int(superheroe["fuerza"])
                 superheroe["peso"] = float(superheroe["peso"])
                 superheroe["altura"] = float(superheroe["altura"])
         print("Datos Normalizados")
-        retorno = True
-    return retorno
+
 
 #Función Formatear de Lista
 def formatear_lista(list = list):

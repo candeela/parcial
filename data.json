@@ -18,5 +18,9 @@
     "red": {
         "Nombre": "red",
         "puntaje": 90
+    },
+    "can": {
+        "Nombre": "can",
+        "puntaje": 90
     }
 }

@@ -1,8 +1,6 @@
 from data_stark import lista_personajes
 import os
 import json
-import csv
-
 
 '''Recibe por parámetro un string que representa el nombre del archivo a leer. La funcion abre el archivo en modo 
 lectura y devuelve la informacion que contiene ese archivo '''
@@ -51,20 +49,6 @@ def stark_normalizar_datos(lista_personajes:list):
 
 '''Recibe la ruta del archivo y la lista de personajes. La función guardar la información y crea un archivo en 
 formato csv. Si la lista está vacia retorna False y si se creo el archivo retorna True.'''
-'''
-    
-        lista_claves = list(lista_personajes[0].keys())
-        
-        guardar_archivo(ruta_archivo,cabecera)
-        with open(ruta_archivo, "a", encoding="utf-8") as archivo:
-            for heroe in lista_personajes:
-                lista_datos = list(heroe.values())
-                datos = ",".join(lista_datos)
-                archivo.write("{0}\n".format(datos))
-        retorno = True
-    else:
-        retorno = False
-    return retorno'''
 def generar_csv(ruta_archivo:str, lista_personajes: list):
     if lista_personajes != []:
         lista_claves = list(map(str, lista_personajes[0].keys()))
@@ -169,8 +153,6 @@ la clave pasada por paramentro de manera descendente. Devuelve la lista ordenada
 '''Recibe la lista de personajes y la clave por la que se los va a ordenar.La funcion pregunta si se quiere ordenar
 de forma ascendente o descendente'''
 def ordenar_clave_segun_parameto(lista_personajes:list, clave:str):
-    flag = True
-    while (flag):
         opcion = input("\n¿Quiere ordenar la lista de manera ascendente ('asc') o descendente ('desc'): ")
         if opcion == "asc":
             print(ordenar_clave_asc(lista_personajes,clave))
@@ -178,7 +160,6 @@ def ordenar_clave_segun_parameto(lista_personajes:list, clave:str):
             print(ordenar_clave_des(lista_personajes, clave))
         else:
             print("Ingrese una opcion valida")
-            opcion = input("\n¿Quiere ordenar la lista de manera ascendente ('asc') o descendente ('desc'): ")
 
 #menu
 flag_menu = True
@@ -197,55 +178,46 @@ ordenar de manera ASC o DESC
 ● 7-Salir''')
     
     opcion = input("Ingrese una opcion: ")
-    '''while flag_opcion_normalizar == True:
+    while flag_opcion_normalizar == True:
             if opcion != '1':
                 print("Hace falta normalizar los datos")
-                opcion = print(''''''● 1-Normalizar datos 
+                opcion = print('''● 1-Normalizar datos 
 ● 2-Generar CSV 
 ● 3-Listar heroes del archivo CSV ordenados por altura ASC (Validar si el mismo existe)
 ● 4-Generar JSON (Guardar la lista generada en otra variable)
 ● 5-Listar heroes del archivo JSON ordenados por peso DESC (Validar si el mismo existe)
 ● 6-Ordenar Lista por fuerza
-● 7-Salir''''''
+● 7-Salir''')
 
                 opcion = input("Ingrese una opcion: ")
             else:
-                flag_opcion_normalizar = False'''
+                flag_opcion_normalizar = False
 
     if opcion == '1':
         print(stark_normalizar_datos(lista_personajes))
+
+
+
     elif opcion == '2':
         csv_generado = generar_csv('Opcion_2.cvs',lista_personajes)
         print('Archivo cvs generado')
     elif opcion == '3':
-        try:
-            lista_csv = leer_cvs('Opcion_2.cvs')
-            if lista_csv:
-                # Imprimir lista sin ordenar
-                print("Lista sin ordenar:")
-                print(lista_csv)
-
-                # Ordenar y luego imprimir
-                lista_ordenada = ordenar_clave_asc(lista_csv, 'altura')
-                print("Lista ordenada por altura ASC:")
-                print(lista_ordenada)
-            else:
-                print('El archivo CSV no existe.')
-        except FileNotFoundError:
-            print('El archivo CSV no existe.')
-
+        ruta_csv = 'Opcion_2.cvs'
+        if os.path.exists(ruta_csv):
+            lista_csv = leer_cvs(ruta_csv)
+            print(ordenar_clave_asc(lista_csv, 'altura'))
+        else:
+            print("El archivo CSV no existe.")
     elif opcion == '4':
-        json_generado = generar_json('Opcion_4.json',lista_personajes,"lista_personajes ")
+        json_generado = generar_json('Opcion_4.json',lista_personajes,"lista_personajes")
         print('Archivo json generado')
     elif opcion == '5':
-        try:
-            lista_json = leer_json('Opcion_4.json', 'lista_personajes')
-            if lista_json != False: 
-                lista_ordenada = ordenar_clave_des(lista_json, 'peso')
-                print(lista_ordenada)
-        except FileNotFoundError:
-            print('El archivo JSON no existe.')
-
+        ruta_json = 'Opcion_4.json'
+        if os.path.exists(ruta_json):
+            lista_json = leer_json('Opcion_4.json', "lista_personajes")
+            print( ordenar_clave_des(lista_json, 'peso'))
+        else:
+            print("El archivo JSON no existe.")
     elif opcion == '6':
         print(ordenar_clave_segun_parameto(lista_personajes,'fuerza'))
     elif opcion == '7':
