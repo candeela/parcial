@@ -1,6 +1,6 @@
 {
-    "cande": {
-        "Nombre": "cande",
+    "can": {
+        "Nombre": "can",
         "puntaje": 90
     },
     "lola": {
@@ -15,12 +15,8 @@
         "Nombre": "red",
         "puntaje": 90
     },
-    "can": {
-        "Nombre": "can",
-        "puntaje": 70
-    },
-    "bruno": {
-        "Nombre": "bruno",
-        "puntaje": 0
+    "parcial": {
+        "Nombre": "parcial",
+        "puntaje": 40
     }
 }

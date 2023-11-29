@@ -108,8 +108,8 @@ def leer_json(ruta_archivo:str, nombre_lista:str):
     retorno = False 
     try:
         with open(ruta_archivo, "r", encoding="utf-8") as archivo:
-            diccionario = json.load(archivo) #carga el contenido del archivo JSON y lo convierte en un diccionario de Python.
-            if nombre_lista in diccionario:#verificar si existe la clave en ese diccionario 
+            diccionario = json.load(archivo) 
+            if nombre_lista in diccionario: 
                 lista = diccionario[nombre_lista]
                 retorno = lista
     except FileNotFoundError:
@@ -167,14 +167,11 @@ flag_json = True
 flag_opcion_normalizar = True
 while flag_menu:
     print('''● 1-Normalizar datos
-● 2-Generar CSV (Guardar la lista generada en otra variable)
-● 3-Listar heroes del archivo CSV ordenados por altura ASC (Validar si el
-mismo existe)
-● 4-Generar JSON (Guardar la lista generada en otra variable)
-● 5-Listar heroes del archivo JSON ordenados por peso DESC (Validar si
-el mismo existe)
-● 6-Ordenar Lista por fuerza (Se le tiene que preguntar al usuario si
-ordenar de manera ASC o DESC
+● 2-Generar CSV 
+● 3-Listar heroes del archivo CSV ordenados por altura ASC 
+● 4-Generar JSON 
+● 5-Listar heroes del archivo JSON ordenados por peso DESC (
+● 6-Ordenar lista por fuerza 
 ● 7-Salir''')
     
     opcion = input("Ingrese una opcion: ")
@@ -183,10 +180,10 @@ ordenar de manera ASC o DESC
                 print("Hace falta normalizar los datos")
                 opcion = print('''● 1-Normalizar datos 
 ● 2-Generar CSV 
-● 3-Listar heroes del archivo CSV ordenados por altura ASC (Validar si el mismo existe)
-● 4-Generar JSON (Guardar la lista generada en otra variable)
-● 5-Listar heroes del archivo JSON ordenados por peso DESC (Validar si el mismo existe)
-● 6-Ordenar Lista por fuerza
+● 3-Listar heroes del archivo CSV ordenados por altura ASC
+● 4-Generar JSON 
+● 5-Listar heroes del archivo JSON ordenados por peso DESC 
+● 6-Ordenar lista por fuerza
 ● 7-Salir''')
 
                 opcion = input("Ingrese una opcion: ")
@@ -199,10 +196,10 @@ ordenar de manera ASC o DESC
 
 
     elif opcion == '2':
-        csv_generado = generar_csv('Opcion_2.cvs',lista_personajes)
+        csv_generado = generar_csv('Opcion_2.csv',lista_personajes)
         print('Archivo cvs generado')
     elif opcion == '3':
-        ruta_csv = 'Opcion_2.cvs'
+        ruta_csv = 'Opcion_2.csv'
         if os.path.exists(ruta_csv):
             lista_csv = leer_cvs(ruta_csv)
             print(ordenar_clave_asc(lista_csv, 'altura'))

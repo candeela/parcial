@@ -239,9 +239,9 @@ def  imprimir_ficha_heroe(personaje:dict):
     consultora = obtener_dato_formato(personaje["empresa"]) 
     codigo = generar_codigo_heroe(personaje,2)
     encabezado_fisico = generar_encabezado("fisico")
-    altura = (personaje["altura"]+ ' cm.' )
-    peso = (personaje["peso"]+ ' kg.' )
-    fuerza = (personaje["fuerza"]+ ' N.' )
+    altura = (personaje["altura"] )
+    peso = (personaje["peso"] )
+    fuerza = (personaje["fuerza"] )
     encabezado_señas = generar_encabezado("señas particulares")
     ojos = (personaje["color_ojos"]) 
     pelo = (personaje["color_pelo"]) 
@@ -254,23 +254,27 @@ si es 1 muestra la ficha de la izquierda, si es 2 muestra la de la derecha, si e
 ninguna de esas opciones vuelve a pedir un ingreso valido. Devuelve la ficha del personaje segun corresponda
 '''
 def stark_navegar_fichas(lista_personajes:list):
-    indice = 0 
+    indice = 0
     flag_navegar = True
-    print(imprimir_ficha_heroe(lista_personajes[indice]))
+    print(imprimir_ficha_heroe(lista_personajes[indice ]))
     while flag_navegar:
         opcion = input("Ingrese alguna de las siguientes opciones ([ 1 ] Ir a la izquierda, [ 2 ] Ir a la derecha, [ 3 ] Salir): ")
         if opcion == "1":
-            if indice == "0":
-                indice = 23
-            else: 
-                indice = indice - 1
+            if indice == 0:
+                indice = len(lista_personajes) - 1
+            else:
+                indice -= 1
+                if indice not in range (len(lista_personajes)):
+                    indice = len(lista_personajes) 
         elif opcion == "2":
             indice += 1
+            if indice not in range (len(lista_personajes)):
+                indice = len(lista_personajes) - len(lista_personajes)
         elif opcion == "3":
             break
         else:
             opcion = input("Ingrese una opcion valida: ")
-        print(imprimir_ficha_heroe(lista_personajes[indice]))
+        print(imprimir_ficha_heroe(lista_personajes[indice ]))
 
 #menu
 flag_menu = True
